@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<input type="file" id="myFile">
+<button onclick='processFile()'>Process</button>
+<!-- <table id="myTable"></table> -->
+
+<canvas id="myCanvas" width="1800" height="800" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+
+function processFile() {
+
+    var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
+    var fileSize = 0;
+    //get file
+    var theFile = document.getElementById("myFile");
+
+     var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+     //check if file is CSV
+     if (regex.test(theFile.value.toLowerCase())) {
+     //check if browser support FileReader
+        if (typeof (FileReader) != "undefined") {
+
+        var myReader = new FileReader();
+        // call filereader. onload function
+        myReader.onload = function(e) {
+            var content = myReader.result;
+            //split csv file using "\n" for new line ( each row)
+            var lines = content.split("\r");
+            //loop all rows
+            for (var count = 0; count < lines.length; count++) {
+            	var r = () => Math.random() * 256 >> 0;
+				var color = `rgb(${r()}, ${r()}, ${r()})`;
+                var row = lines[count].split(",");
+				ctx.beginPath();
+				ctx.strokeStyle = color;
+				ctx.rect(row[0],row[1],row[2],row[3]);
+				ctx.stroke(); 
+				// ctx.clearRect(row[0],row[1],row[2],row[3]);
+				console.log(lines[count]);               
+            }
+
+        }
+         //call file reader onload
+          myReader.readAsText(theFile.files[0]);
+        }
+        else 
+        {
+              alert("This browser does not support HTML5.");
+        }
+        
+    }
+    else {
+                alert("Please upload a valid CSV file.");
+    }
+    return false;
+}
+</script>
+</body>
+</html>

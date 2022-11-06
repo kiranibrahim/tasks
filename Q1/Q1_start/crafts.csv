@@ -1,0 +1,4 @@
+city,lat,lng,country,iso2,admin_name,capital,population,population_proper
+Lahore,31.5497,74.3436,Pakistan,PK,Punjab,admin,11021000,11021000
+Islamabad,33.6989,73.0369,Pakistan,PK,Islāmābād,primary,1014825,1014825
+Gwadar,25.1264,62.3225,Pakistan,PK,Balochistān,minor,51901,23364
